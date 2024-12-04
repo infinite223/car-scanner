@@ -15,14 +15,16 @@
     "expo": "~51.0.28",
     "expo-dev-client": "~4.0.28",
     "expo-gl": "~14.0.2",
+    "expo-screen-orientation": "~7.0.5",
     "expo-status-bar": "~1.12.1",
+    "nativewind": "^4.1.23",
     "react": "18.2.0",
     "react-native": "0.74.5",
     "react-native-ble-plx": "^3.2.1",
     "react-native-gesture-handler": "^2.21.2",
     "react-native-reanimated": "~3.10.1",
-    "three": "^0.171.0",
-    "expo-screen-orientation": "~7.0.5"
+    "tailwindcss-react-native": "^1.7.10",
+    "three": "^0.171.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

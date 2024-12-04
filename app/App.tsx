@@ -12,6 +12,8 @@ import BluetoothScanner from "./components/BluetoothScanner";
 import ModelComponent from "./components/Model";
 import { getProjectDataById } from "./services/project";
 import * as ScreenOrientation from "expo-screen-orientation";
+import tw from "twrnc";
+import { TopNavigation } from "./components/TopNavigation";
 
 export default function App() {
   useEffect(() => {
@@ -27,28 +29,9 @@ export default function App() {
     };
   }, []);
 
-  async function changeScreenOrientation() {
-    await ScreenOrientation.lockAsync(
-      ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
-    );
-  }
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <TouchableOpacity
-        style={{
-          marginTop: 50,
-          marginHorizontal: 20,
-          backgroundColor: "#fc9322",
-          padding: 10,
-          width: 50,
-          borderRadius: 50,
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-        onPress={changeScreenOrientation}
-      >
-        <Text>O</Text>
-      </TouchableOpacity>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "black" }}>
+      <TopNavigation />
     </SafeAreaView>
   );
 }
