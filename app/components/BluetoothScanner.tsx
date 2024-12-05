@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Button, Text, View, FlatList } from "react-native";
 import { BleManager, Device } from "react-native-ble-plx";
-import { PermissionsAndroid, Platform } from "react-native";
 import { Buffer } from "buffer";
+import { requestPermissions } from "../common/helpers";
 
 const BluetoothScanner2: React.FC = () => {
   const [devices, setDevices] = useState<Device[]>([]);
@@ -21,26 +21,6 @@ const BluetoothScanner2: React.FC = () => {
       bleManager.destroy();
     };
   }, []);
-
-  const requestPermissions = async () => {
-    if (Platform.OS === "android") {
-      if (Platform.Version >= 31) {
-        await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.BLUETOOTH_SCAN
-        );
-        await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.BLUETOOTH_CONNECT
-        );
-        await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
-        );
-      } else {
-        await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
-        );
-      }
-    }
-  };
 
   const startScan = () => {
     if (manager) {
@@ -67,7 +47,7 @@ const BluetoothScanner2: React.FC = () => {
       await device.connect();
       await device.discoverAllServicesAndCharacteristics();
       setConnectedDevice(device);
-      startReadingData(device); // Rozpocznij odczyt danych po połączeniu
+      startReadingData(device);
     } catch (error) {
       console.error("Connection error:", error);
     }
@@ -95,14 +75,6 @@ const BluetoothScanner2: React.FC = () => {
       const characteristicUUID = "00002222-0000-1000-8000-00805f9b34fb"; // Characteristic UUID z LightBlue
       const serviceUUID = "00001111-0000-1000-8000-00805f9b34fb"; // Service UUID
       // const characteristicUUID = "44217A0A-6AF3-4404-AE38-6F52F326511E"; // Characteristic UUID
-      const commandBase64 = Buffer.from(command + "\r").toString("base64");
-      // console.log(commandBase64);
-      // const characteristic =
-      //   await device.writeCharacteristicWithResponseForService(
-      //     serviceUUID,
-      //     characteristicUUID,
-      //     commandBase64
-      //   );
 
       const characteristic = await device.readCharacteristicForService(
         serviceUUID,

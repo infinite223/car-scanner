@@ -20,6 +20,7 @@
     "expo-router": "~3.5.24",
     "expo-screen-orientation": "~7.0.5",
     "expo-status-bar": "~1.12.1",
+    "nativewind": "^4.1.23",
     "react": "18.2.0",
     "react-native": "0.74.5",
     "react-native-ble-plx": "^3.2.1",
