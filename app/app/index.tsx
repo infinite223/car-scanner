@@ -9,8 +9,9 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { MainNavigation } from "../components/MainNavigation";
 import { globalStyles } from "../styles/globalStyles";
-import LogoScreen from "../components/HomeScreens/LogoScreen";
 import BaseScreen from "../components/HomeScreens/BaseScreen";
+import PanelScreen from "../components/HomeScreens/PanelsSceen";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function Home() {
   const navigation = useNavigation();
@@ -36,7 +37,7 @@ export default function Home() {
   };
 
   return (
-    <View style={[globalStyles.screenContainer, {}]}>
+    <GestureHandlerRootView style={[globalStyles.screenContainer, {}]}>
       <SafeAreaView
         style={[
           globalStyles.screenContainer,
@@ -50,7 +51,7 @@ export default function Home() {
         </Animated.View>
 
         <FlatList
-          data={[<BaseScreen />, <LogoScreen />]}
+          data={[<BaseScreen />, <PanelScreen />]}
           keyExtractor={(_, index) => index.toString()}
           horizontal
           pagingEnabled
@@ -60,7 +61,7 @@ export default function Home() {
           showsHorizontalScrollIndicator={false}
         />
       </SafeAreaView>
-    </View>
+    </GestureHandlerRootView>
   );
 }
 

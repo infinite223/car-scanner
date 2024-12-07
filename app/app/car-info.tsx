@@ -10,6 +10,9 @@ import {
   PinchGestureHandler,
   GestureHandlerRootView,
 } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { appConfig } from "../app.config";
 
 export default function Settings() {
   const navigation = useNavigation();
@@ -35,6 +38,25 @@ export default function Settings() {
       <MainNavigation />
 
       <ScrollView>
+        <View style={styles.header}>
+          <Text style={[globalStyles.baseText, styles.headerText]}>
+            Aktualne parametry silnika
+          </Text>
+          {/* <TouchableOpacity style={styles.button}>
+              <Text style={[globalStyles.baseText, styles.buttonText]}>
+                Oceń przez AI
+              </Text>
+            </TouchableOpacity> */}
+          {appConfig.isConnectedWithautomotiveplace && (
+            <TouchableOpacity style={styles.button}>
+              <Text style={[globalStyles.baseText, styles.buttonText]}>
+                Loguj parametry
+              </Text>
+              <FontAwesome name="play-circle" color="white" size={30} />
+            </TouchableOpacity>
+          )}
+        </View>
+
         <GestureHandlerRootView style={{ flex: 1 }}>
           <PinchGestureHandler onGestureEvent={handlePinch}>
             <View style={styles.paramsContainer}>
@@ -60,5 +82,32 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     flexWrap: "wrap",
+  },
+  header: {
+    flex: 1,
+    flexDirection: "row",
+    padding: 10,
+    marginBottom: 10,
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: 10,
+  },
+  headerText: {
+    fontSize: 35,
+    fontWeight: "800",
+  },
+  button: {
+    borderColor: "#444",
+    paddingHorizontal: 25,
+    paddingVertical: 15,
+    borderRadius: 5,
+    borderWidth: 3,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 15,
+  },
+  buttonText: {
+    fontSize: 25,
+    fontWeight: "700",
   },
 });

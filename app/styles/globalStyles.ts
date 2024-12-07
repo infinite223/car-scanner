@@ -15,8 +15,6 @@ export const globalStyles = StyleSheet.create({
   homeScreen: {
     width: SCREEN_WIDTH,
     height: SCREEN_HEIGHT,
-    justifyContent: "center",
-    alignItems: "center",
     borderRightWidth: 1,
     borderColor: "gray",
   },

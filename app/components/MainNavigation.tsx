@@ -5,7 +5,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Feather from "react-native-vector-icons/Feather";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import FontAwesome6 from "react-native-vector-icons/FontAwesome6";
-
+import AntDesign from "react-native-vector-icons/AntDesign";
 import { globalStyles } from "../styles/globalStyles";
 
 export const MainNavigation = () => {
@@ -24,6 +24,13 @@ export const MainNavigation = () => {
         onPress={() => router.navigate("/car-info")}
       >
         <MaterialCommunityIcons name="car-info" color="white" size={50} />
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.item}
+        onPress={() => router.navigate("/car-info")}
+      >
+        <AntDesign name="linechart" color="white" size={50} />
       </TouchableOpacity>
 
       <TouchableOpacity
