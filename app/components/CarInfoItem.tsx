@@ -1,14 +1,30 @@
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  Pressable,
+  StyleProp,
+  ViewStyle,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import { globalStyles } from "../styles/globalStyles";
+import { valuesColors } from "../common/data";
+import { appConfig } from "../app.config";
 
 interface ICarInfoItem {
   title: string;
   pidCode: string;
   warningValue?: number;
+  customStyles?: StyleProp<ViewStyle>;
+  scale?: number;
 }
 
-export const CarInfoItem = ({ title, pidCode, warningValue }: ICarInfoItem) => {
+export const CarInfoItem = ({
+  title,
+  pidCode,
+  warningValue,
+  customStyles,
+  scale = 1,
+}: ICarInfoItem) => {
   const [value, setValue] = useState<number | null>(null);
   const [valueText, setValueText] = useState<string>("white");
 
@@ -30,11 +46,11 @@ export const CarInfoItem = ({ title, pidCode, warningValue }: ICarInfoItem) => {
       const upperBound = warningValue;
 
       if (newValue >= upperBound) {
-        setValueText("red");
+        setValueText(valuesColors.error);
       } else if (newValue >= lowerBound) {
-        setValueText("orange");
+        setValueText(valuesColors.warning);
       } else {
-        setValueText("white");
+        setValueText(valuesColors.default);
       }
     };
 
@@ -42,38 +58,51 @@ export const CarInfoItem = ({ title, pidCode, warningValue }: ICarInfoItem) => {
 
     const interval = setInterval(() => {
       getValueFromCar();
-    }, 1000);
+    }, appConfig.valueTimeRefresh);
 
     return () => clearInterval(interval);
   }, [pidCode, warningValue]);
 
   return (
-    <Pressable style={styles.container} onLongPress={handleLongPress}>
+    <Pressable
+      style={[styles.container, customStyles]}
+      onLongPress={handleLongPress}
+    >
       <Text
-        style={[globalStyles.baseText, styles.valueText, { color: valueText }]}
+        style={[
+          globalStyles.baseText,
+          styles.valueText,
+          { color: valueText, fontSize: 40 * scale },
+        ]}
       >
         {value !== null ? value.toFixed(2) : "--"}
       </Text>
-      <Text style={[globalStyles.baseText, styles.titleText]}>{title}</Text>
+      <Text
+        style={[
+          globalStyles.baseText,
+          styles.titleText,
+          { fontSize: 15 * scale },
+        ]}
+      >
+        {title}
+      </Text>
     </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    minWidth: 250,
-    borderColor: "#444",
+    minWidth: 300,
+    minHeight: 250,
+    borderColor: "#333",
     borderWidth: 1,
     borderRadius: 10,
     padding: 30,
   },
   valueText: {
-    fontSize: 60,
     fontWeight: "900",
   },
   titleText: {
     color: "white",
-    fontSize: 30,
   },
 });
