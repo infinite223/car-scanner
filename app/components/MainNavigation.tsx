@@ -28,7 +28,7 @@ export const MainNavigation = () => {
 
       <TouchableOpacity
         style={styles.item}
-        onPress={() => router.navigate("/car-info")}
+        onPress={() => router.navigate("/charts")}
       >
         <AntDesign name="linechart" color="white" size={50} />
       </TouchableOpacity>
