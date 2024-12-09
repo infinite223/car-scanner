@@ -14,7 +14,7 @@
     "@react-three/drei": "^9.119.0",
     "@react-three/fiber": "^8.17.10",
     "buffer": "^6.0.3",
-    "expo": "~51.0.28",
+    "expo": "^52.0.17",
     "expo-asset": "^11.0.1",
     "expo-constants": "~16.0.2",
     "expo-dev-client": "~4.0.28",

@@ -32,33 +32,31 @@ export default function Home() {
   };
 
   return (
-    <SafeAreaView>
-      <GestureHandlerRootView style={[globalStyles.screenContainer, {}]}>
-        <SafeAreaView
-          style={[
-            globalStyles.screenContainer,
-            { backgroundColor: "transparent" },
-          ]}
+    <GestureHandlerRootView style={[globalStyles.screenContainer, {}]}>
+      <SafeAreaView
+        style={[
+          globalStyles.screenContainer,
+          { backgroundColor: "transparent" },
+        ]}
+      >
+        <Animated.View
+          style={[styles.mainNavigation, { transform: [{ translateX }] }]}
         >
-          <Animated.View
-            style={[styles.mainNavigation, { transform: [{ translateX }] }]}
-          >
-            <MainNavigation />
-          </Animated.View>
+          <MainNavigation />
+        </Animated.View>
 
-          <FlatList
-            data={[<BaseScreen />, <PanelScreen />]}
-            keyExtractor={(_, index) => index.toString()}
-            horizontal
-            pagingEnabled
-            onScroll={handleScroll}
-            scrollEventThrottle={16}
-            renderItem={({ item }) => item}
-            showsHorizontalScrollIndicator={false}
-          />
-        </SafeAreaView>
-      </GestureHandlerRootView>
-    </SafeAreaView>
+        <FlatList
+          data={[<BaseScreen />, <PanelScreen />]}
+          keyExtractor={(_, index) => index.toString()}
+          horizontal
+          pagingEnabled
+          onScroll={handleScroll}
+          scrollEventThrottle={16}
+          renderItem={({ item }) => item}
+          showsHorizontalScrollIndicator={false}
+        />
+      </SafeAreaView>
+    </GestureHandlerRootView>
   );
 }
 
