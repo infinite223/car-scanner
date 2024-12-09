@@ -1,17 +1,12 @@
 import { useNavigation } from "expo-router";
-import {
-  Animated,
-  FlatList,
-  SafeAreaView,
-  StyleSheet,
-  View,
-} from "react-native";
+import { Animated, FlatList, SafeAreaView, StyleSheet } from "react-native";
 import { useEffect, useRef, useState } from "react";
 import { MainNavigation } from "../components/MainNavigation";
 import { globalStyles } from "../styles/globalStyles";
 import BaseScreen from "../components/HomeScreens/BaseScreen";
 import PanelScreen from "../components/HomeScreens/PanelsSceen";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 export default function Home() {
   const navigation = useNavigation();
@@ -37,31 +32,33 @@ export default function Home() {
   };
 
   return (
-    <GestureHandlerRootView style={[globalStyles.screenContainer, {}]}>
-      <SafeAreaView
-        style={[
-          globalStyles.screenContainer,
-          { backgroundColor: "transparent" },
-        ]}
-      >
-        <Animated.View
-          style={[styles.mainNavigation, { transform: [{ translateX }] }]}
+    <SafeAreaView>
+      <GestureHandlerRootView style={[globalStyles.screenContainer, {}]}>
+        <SafeAreaView
+          style={[
+            globalStyles.screenContainer,
+            { backgroundColor: "transparent" },
+          ]}
         >
-          <MainNavigation />
-        </Animated.View>
+          <Animated.View
+            style={[styles.mainNavigation, { transform: [{ translateX }] }]}
+          >
+            <MainNavigation />
+          </Animated.View>
 
-        <FlatList
-          data={[<BaseScreen />, <PanelScreen />]}
-          keyExtractor={(_, index) => index.toString()}
-          horizontal
-          pagingEnabled
-          onScroll={handleScroll}
-          scrollEventThrottle={16}
-          renderItem={({ item }) => item}
-          showsHorizontalScrollIndicator={false}
-        />
-      </SafeAreaView>
-    </GestureHandlerRootView>
+          <FlatList
+            data={[<BaseScreen />, <PanelScreen />]}
+            keyExtractor={(_, index) => index.toString()}
+            horizontal
+            pagingEnabled
+            onScroll={handleScroll}
+            scrollEventThrottle={16}
+            renderItem={({ item }) => item}
+            showsHorizontalScrollIndicator={false}
+          />
+        </SafeAreaView>
+      </GestureHandlerRootView>
+    </SafeAreaView>
   );
 }
 

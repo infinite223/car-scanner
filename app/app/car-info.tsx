@@ -12,9 +12,11 @@ import {
 } from "react-native-gesture-handler";
 import { TouchableOpacity } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { appConfig } from "../app.config";
+import { appConfig } from "../appConfig";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
-export default function Settings() {
+export default function CarInfo() {
+  const [isLogging, setIsLogging] = useState(false);
   const navigation = useNavigation();
 
   useEffect(() => {

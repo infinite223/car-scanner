@@ -8,7 +8,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { globalStyles } from "../styles/globalStyles";
 import { valuesColors } from "../common/data";
-import { appConfig } from "../app.config";
+import { appConfig } from "../appConfig";
 
 interface ICarInfoItem {
   title: string;

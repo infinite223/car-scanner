@@ -1,8 +1,8 @@
 {
-  "scheme": "schema",
   "expo": {
     "name": "car-scanner",
     "slug": "car-scanner",
+    "scheme": "car-scanner",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
