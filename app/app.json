@@ -38,7 +38,10 @@
         "react-native-ble-plx",
         {
           "isBackgroundEnabled": true,
-          "modes": ["peripheral", "central"],
+          "modes": [
+            "peripheral",
+            "central"
+          ],
           "bluetoothAlwaysPermission": "Allow $(PRODUCT_NAME) to connect to bluetooth devices"
         }
       ],
@@ -51,8 +54,11 @@
       "expo-router"
     ],
     "extra": {
+      "router": {
+        "origin": false
+      },
       "eas": {
-        "projectId": "fcdee72a-e5b8-4c2a-9b65-93262f8b37eb"
+        "projectId": "153dd029-45da-4086-846d-e7156274bbe7"
       }
     }
   }
