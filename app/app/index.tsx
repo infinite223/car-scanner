@@ -1,15 +1,21 @@
-import { useNavigation } from "expo-router";
-import { Animated, FlatList, SafeAreaView, StyleSheet } from "react-native";
-import { useEffect, useRef, useState } from "react";
+import { useNavigation, useRouter } from "expo-router";
+import {
+  Animated,
+  FlatList,
+  SafeAreaView,
+  Platform,
+  StyleSheet,
+} from "react-native";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { MainNavigation } from "../components/MainNavigation";
-import { globalStyles } from "../styles/globalStyles";
+import { globalStyles, SCREEN_WIDTH } from "../styles/globalStyles";
 import BaseScreen from "../components/HomeScreens/BaseScreen";
 import PanelScreen from "../components/HomeScreens/PanelsSceen";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { SafeAreaProvider } from "react-native-safe-area-context";
 
 export default function Home() {
   const navigation = useNavigation();
+  const router = useRouter();
 
   useEffect(() => {
     navigation.setOptions({ headerShown: false });
@@ -17,6 +23,20 @@ export default function Home() {
 
   const translateX = useRef(new Animated.Value(0)).current;
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  const [isMounted, setIsMounted] = useState(false); // Stan do kontrolowania, czy komponent jest zamontowany
+
+  // Używamy useEffect, aby poczekać na załadowanie komponentu
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    // Dopiero po pełnym załadowaniu komponentu sprawdzamy szerokość ekranu
+    if (isMounted && SCREEN_WIDTH < 500) {
+      router.push("incompatibility"); // Nawigujemy, jeśli ekran jest za mały
+    }
+  }, [isMounted, router]); //
 
   const handleScroll = (event: any) => {
     const contentOffsetX = event.nativeEvent.contentOffset.x;

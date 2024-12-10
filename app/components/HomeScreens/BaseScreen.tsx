@@ -2,9 +2,9 @@ import { View, Text, Image, StyleSheet } from "react-native";
 import React, { Suspense } from "react";
 import { globalStyles } from "../../styles/globalStyles";
 import { CarInfo } from "../../common/types";
-import ModelComponent from "../Model";
 import { Canvas } from "@react-three/fiber/native";
-import Model from "../Model";
+import { Model } from "../Model";
+import { appConfig } from "../../appConfig";
 
 const BaseScreen = () => {
   const currentLoadCar: CarInfo = {
@@ -61,9 +61,8 @@ const BaseScreen = () => {
 
         {/* <Canvas>
           <Suspense fallback={null}> */}
-        <ModelComponent />
-        {/* </Suspense>
-        </Canvas> */}
+        {/* <ModelComponent /> */}
+        <Model />
       </View>
     </View>
   );
@@ -77,6 +76,7 @@ const styles = StyleSheet.create({
   },
   container: {
     paddingHorizontal: 20,
+    flex: 1,
   },
   textModel: {
     fontSize: 85,

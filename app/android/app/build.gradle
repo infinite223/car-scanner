@@ -109,9 +109,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace 'com.infinite223.carscanner'
+    namespace 'com.infinite223.ampanel'
     defaultConfig {
-        applicationId 'com.infinite223.carscanner'
+        applicationId 'com.infinite223.ampanel'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

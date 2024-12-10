@@ -1,12 +1,13 @@
 {
   "expo": {
-    "name": "car-scanner",
-    "slug": "car-scanner",
-    "scheme": "car-scanner",
+    "name": "am-panel",
+    "slug": "am-panel",
+    "scheme": "am-panel",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "newArchEnabled": true,
     "jsEngine": "hermes",
     "splash": {
       "image": "./assets/splash.png",
@@ -15,7 +16,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.automotiveplace.carscanner"
+      "bundleIdentifier": "com.automotiveplace.ampanel"
     },
     "android": {
       "adaptiveIcon": {
@@ -27,7 +28,7 @@
         "android.permission.BLUETOOTH_ADMIN",
         "android.permission.BLUETOOTH_CONNECT"
       ],
-      "package": "com.infinite223.carscanner"
+      "package": "com.infinite223.ampanel"
     },
     "web": {
       "favicon": "./assets/favicon.png"

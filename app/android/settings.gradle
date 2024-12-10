@@ -44,7 +44,7 @@ if (getRNMinorVersion() >= 75) {
   }
 }
 
-rootProject.name = 'car-scanner'
+rootProject.name = 'am-panel'
 
 dependencyResolutionManagement {
   versionCatalogs {
