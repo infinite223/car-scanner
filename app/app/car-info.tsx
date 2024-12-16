@@ -12,7 +12,7 @@ import {
 } from "react-native-gesture-handler";
 import { TouchableOpacity } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { appConfig } from "../app.config";
+import { appConfig } from "../appConfig";
 
 export default function Settings() {
   const navigation = useNavigation();
