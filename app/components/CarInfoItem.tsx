@@ -8,9 +8,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { globalStyles } from "../styles/globalStyles";
 import { valuesColors } from "../common/data";
-import { appConfig } from "../appConfig";
-import AnimatedNumbers from "react-native-animated-numbers";
-import { AnimatedNumber } from "./AnimatedNumber";
+import { appConfig } from "../app.config";
 
 interface ICarInfoItem {
   title: string;
