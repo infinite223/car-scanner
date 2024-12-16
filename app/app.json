@@ -1,12 +1,13 @@
 {
-  "scheme": "schema",
   "expo": {
-    "name": "car-scanner",
-    "slug": "car-scanner",
+    "name": "am-panel",
+    "slug": "am-panel",
+    "scheme": "am-panel",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "newArchEnabled": true,
     "jsEngine": "hermes",
     "splash": {
       "image": "./assets/splash.png",
@@ -15,7 +16,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.automotiveplace.carscanner"
+      "bundleIdentifier": "com.automotiveplace.ampanel"
     },
     "android": {
       "adaptiveIcon": {
@@ -27,7 +28,7 @@
         "android.permission.BLUETOOTH_ADMIN",
         "android.permission.BLUETOOTH_CONNECT"
       ],
-      "package": "com.infinite223.carscanner"
+      "package": "com.infinite223.ampanel"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -37,7 +38,10 @@
         "react-native-ble-plx",
         {
           "isBackgroundEnabled": true,
-          "modes": ["peripheral", "central"],
+          "modes": [
+            "peripheral",
+            "central"
+          ],
           "bluetoothAlwaysPermission": "Allow $(PRODUCT_NAME) to connect to bluetooth devices"
         }
       ],
@@ -50,8 +54,11 @@
       "expo-router"
     ],
     "extra": {
+      "router": {
+        "origin": false
+      },
       "eas": {
-        "projectId": "fcdee72a-e5b8-4c2a-9b65-93262f8b37eb"
+        "projectId": "153dd029-45da-4086-846d-e7156274bbe7"
       }
     }
   }

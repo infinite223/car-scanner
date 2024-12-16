@@ -1,5 +1,5 @@
 import { useNavigation } from "expo-router";
-import { Dimensions, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { Button, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { useEffect, useState } from "react";
 import { MainNavigation } from "../components/MainNavigation";
 import { globalStyles, SCREEN_WIDTH } from "../styles/globalStyles";
@@ -12,9 +12,11 @@ import {
 } from "react-native-gesture-handler";
 import { TouchableOpacity } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { appConfig } from "../app.config";
+import { appConfig } from "../appConfig";
+import { AnimatedNumber } from "../components/AnimatedNumber";
 
-export default function Settings() {
+export default function CarInfo() {
+  const [isLogging, setIsLogging] = useState(false);
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -42,6 +44,7 @@ export default function Settings() {
           <Text style={[globalStyles.baseText, styles.headerText]}>
             Aktualne parametry silnika
           </Text>
+
           {/* <TouchableOpacity style={styles.button}>
               <Text style={[globalStyles.baseText, styles.buttonText]}>
                 Oceń przez AI
@@ -60,8 +63,9 @@ export default function Settings() {
         <GestureHandlerRootView style={{ flex: 1 }}>
           <PinchGestureHandler onGestureEvent={handlePinch}>
             <View style={styles.paramsContainer}>
-              {settings.carInfoItems.map((item) => (
+              {settings.carInfoItems.map((item, i) => (
                 <CarInfoItem
+                  key={i}
                   title={item.title}
                   pidCode={item.pidCode}
                   warningValue={item.warningValue}

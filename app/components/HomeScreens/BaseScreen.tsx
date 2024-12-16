@@ -1,7 +1,10 @@
 import { View, Text, Image, StyleSheet } from "react-native";
-import React from "react";
+import React, { Suspense } from "react";
 import { globalStyles } from "../../styles/globalStyles";
 import { CarInfo } from "../../common/types";
+import { Canvas } from "@react-three/fiber/native";
+import { Model } from "../Model";
+import { appConfig } from "../../appConfig";
 
 const BaseScreen = () => {
   const currentLoadCar: CarInfo = {
@@ -14,7 +17,7 @@ const BaseScreen = () => {
   return (
     <View style={[globalStyles.homeScreen, styles.fixNavigationMargin]}>
       <View style={styles.container}>
-        <View>
+        {/* <View>
           <Text style={[globalStyles.baseText, styles.textModel]}>
             {currentLoadCar.model}
           </Text>
@@ -54,7 +57,12 @@ const BaseScreen = () => {
               Moment obrotowy
             </Text>
           </View>
-        </View>
+        </View> */}
+
+        {/* <Canvas>
+          <Suspense fallback={null}> */}
+        {/* <ModelComponent /> */}
+        <Model />
       </View>
     </View>
   );
@@ -68,6 +76,7 @@ const styles = StyleSheet.create({
   },
   container: {
     paddingHorizontal: 20,
+    flex: 1,
   },
   textModel: {
     fontSize: 85,
