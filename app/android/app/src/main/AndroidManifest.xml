@@ -32,8 +32,8 @@
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="com.infinite223.carscanner"/>
-        <data android:scheme="exp+car-scanner"/>
+        <data android:scheme="com.infinite223.ampanel"/>
+        <data android:scheme="exp+am-panel"/>
       </intent-filter>
     </activity>
     <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" android:exported="false"/>

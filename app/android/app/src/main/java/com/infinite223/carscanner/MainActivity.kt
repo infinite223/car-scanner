@@ -1,4 +1,4 @@
-package com.infinite223.carscanner
+package com.infinite223.ampanel
 
 import android.os.Build
 import android.os.Bundle

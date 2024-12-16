@@ -35,7 +35,7 @@ export const settings = {
     },
     {
       title: "Poziom paliwa",
-      pidCode: "0x2F", // Prawidłowy PID dla poziomu paliwa
+      pidCode: "0x2F",
     },
     {
       title: "Obciążenie silnika",

@@ -1,29 +1,30 @@
-import React from "react";
-import { View } from "react-native";
-import { runOnUI } from "react-native-reanimated";
-import { GLView } from "expo-gl";
+import React, { Suspense, useRef, useState } from "react";
+import { Canvas } from "@react-three/fiber/native";
+import { useGLTF } from "@react-three/drei/native";
+import modelPath from "../assets/vw_scirocco.glb";
+import { appConfig } from "../appConfig";
 
-function render(gl) {
-  "worklet";
-  // add your WebGL code here
-}
-
-function onContextCreate(gl) {
-  runOnUI((contextId: number) => {
-    "worklet";
-    const gl = GLView.getWorkletContext(contextId);
-    render(gl);
-  })(gl.contextId);
-}
-
-export default function ModelComponent() {
+function BlueBox(props: any) {
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <GLView
-        style={{ width: 300, height: 300 }}
-        enableExperimentalWorkletSupport
-        onContextCreate={onContextCreate}
-      />
-    </View>
+    <mesh {...props}>
+      <boxGeometry args={[1, 1, 1]} />
+      <meshStandardMaterial color="blue" />
+    </mesh>
   );
 }
+
+export const Model = () => {
+  if (!appConfig.show3dModel) {
+    return;
+  }
+
+  return (
+    <Suspense fallback={null}>
+      <Canvas camera={{ position: [0, 10, 0] }} events={undefined}>
+        <ambientLight />
+        <BlueBox position={[0, 0, 0]} />
+        {/* <DraggableModel scale={1.5} /> */}
+      </Canvas>
+    </Suspense>
+  );
+};

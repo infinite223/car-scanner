@@ -9,6 +9,8 @@ import React, { useEffect, useState } from "react";
 import { globalStyles } from "../styles/globalStyles";
 import { valuesColors } from "../common/data";
 import { appConfig } from "../appConfig";
+import AnimatedNumbers from "react-native-animated-numbers";
+import { AnimatedNumber } from "./AnimatedNumber";
 
 interface ICarInfoItem {
   title: string;
@@ -54,13 +56,17 @@ export const CarInfoItem = ({
       }
     };
 
-    getValueFromCar();
-
-    const interval = setInterval(() => {
+    const timeout = setTimeout(() => {
       getValueFromCar();
-    }, appConfig.valueTimeRefresh);
 
-    return () => clearInterval(interval);
+      const interval = setInterval(() => {
+        getValueFromCar();
+      }, appConfig.valueTimeRefresh);
+
+      return () => clearInterval(interval);
+    }, 1000);
+
+    return () => clearTimeout(timeout);
   }, [pidCode, warningValue]);
 
   return (
@@ -68,7 +74,7 @@ export const CarInfoItem = ({
       style={[styles.container, customStyles]}
       onLongPress={handleLongPress}
     >
-      <Text
+      {/* <Text
         style={[
           globalStyles.baseText,
           styles.valueText,
@@ -76,7 +82,30 @@ export const CarInfoItem = ({
         ]}
       >
         {value !== null ? value.toFixed(2) : "--"}
-      </Text>
+      </Text> */}
+      {/* <AnimatedNumber
+        value={value || 0} // Przekazanie wartości do animacji
+        duration={500} // Czas trwania animacji
+        textStyle={[
+          globalStyles.baseText,
+          styles.valueText,
+          { color: valueText, fontSize: 40 * scale },
+        ]}
+      /> */}
+
+      {value !== null ? (
+        <AnimatedNumbers
+          includeComma
+          animateToNumber={parseFloat(value.toFixed(2))}
+          fontStyle={[
+            globalStyles.baseText,
+            styles.valueText,
+            { color: valueText, fontSize: 40 * scale },
+          ]}
+        />
+      ) : (
+        "--"
+      )}
       <Text
         style={[
           globalStyles.baseText,
