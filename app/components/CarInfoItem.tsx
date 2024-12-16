@@ -8,7 +8,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { globalStyles } from "../styles/globalStyles";
 import { valuesColors } from "../common/data";
-import { appConfig } from "../app.config";
+import { appConfig } from "../appConfig";
 
 interface ICarInfoItem {
   title: string;
@@ -72,7 +72,7 @@ export const CarInfoItem = ({
       style={[styles.container, customStyles]}
       onLongPress={handleLongPress}
     >
-      {/* <Text
+      <Text
         style={[
           globalStyles.baseText,
           styles.valueText,
@@ -80,7 +80,7 @@ export const CarInfoItem = ({
         ]}
       >
         {value !== null ? value.toFixed(2) : "--"}
-      </Text> */}
+      </Text>
       {/* <AnimatedNumber
         value={value || 0} // Przekazanie wartości do animacji
         duration={500} // Czas trwania animacji
@@ -91,7 +91,7 @@ export const CarInfoItem = ({
         ]}
       /> */}
 
-      {value !== null ? (
+      {/* {value !== null ? (
         <AnimatedNumbers
           includeComma
           animateToNumber={parseFloat(value.toFixed(2))}
@@ -103,7 +103,7 @@ export const CarInfoItem = ({
         />
       ) : (
         "--"
-      )}
+      )} */}
       <Text
         style={[
           globalStyles.baseText,
