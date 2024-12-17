@@ -1,5 +1,5 @@
-import { useNavigation, useRouter } from "expo-router";
-import { Button, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { useNavigation } from "expo-router";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { useEffect, useState } from "react";
 import { MainNavigation } from "../components/MainNavigation";
 import { globalStyles, SCREEN_WIDTH } from "../styles/globalStyles";
@@ -10,19 +10,11 @@ import {
   PinchGestureHandler,
   GestureHandlerRootView,
 } from "react-native-gesture-handler";
-import { TouchableOpacity } from "react-native";
-import Feather from "react-native-vector-icons/Feather";
-import { appConfig } from "../appConfig";
-import { AnimatedNumber } from "../components/AnimatedNumber";
-import AntDesign from "react-native-vector-icons/AntDesign";
 import { LeftNavigation } from "../components/LeftNavigation";
-
-const leftNavIconsColor = "#ccc";
 
 export default function CarInfo() {
   const [isLogging, setIsLogging] = useState(false);
   const navigation = useNavigation();
-  const router = useRouter();
 
   useEffect(() => {
     navigation.setOptions({ headerShown: false });
@@ -35,7 +27,7 @@ export default function CarInfo() {
     setScale(newScale);
   };
 
-  const screenWidth = SCREEN_WIDTH - 150;
+  const screenWidth = SCREEN_WIDTH - 249;
 
   const elementsPerRow = Math.ceil(6 / scale);
   const itemSize = screenWidth / elementsPerRow;

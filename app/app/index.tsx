@@ -1,11 +1,5 @@
 import { useNavigation, useRouter } from "expo-router";
-import {
-  Animated,
-  FlatList,
-  SafeAreaView,
-  Platform,
-  StyleSheet,
-} from "react-native";
+import { Animated, FlatList, SafeAreaView, StyleSheet } from "react-native";
 import { useEffect, useRef, useState } from "react";
 import { MainNavigation } from "../components/MainNavigation";
 import { globalStyles, SCREEN_WIDTH } from "../styles/globalStyles";
