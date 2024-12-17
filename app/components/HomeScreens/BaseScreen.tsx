@@ -17,7 +17,7 @@ const BaseScreen = () => {
   return (
     <View style={[globalStyles.homeScreen, styles.fixNavigationMargin]}>
       <View style={styles.container}>
-        {/* <View>
+        <View>
           <Text style={[globalStyles.baseText, styles.textModel]}>
             {currentLoadCar.model}
           </Text>
@@ -57,7 +57,7 @@ const BaseScreen = () => {
               Moment obrotowy
             </Text>
           </View>
-        </View> */}
+        </View>
 
         {/* <Canvas>
           <Suspense fallback={null}> */}

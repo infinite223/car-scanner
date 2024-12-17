@@ -1,4 +1,4 @@
-import { useNavigation } from "expo-router";
+import { useNavigation, useRouter } from "expo-router";
 import { Button, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { useEffect, useState } from "react";
 import { MainNavigation } from "../components/MainNavigation";
@@ -11,13 +11,18 @@ import {
   GestureHandlerRootView,
 } from "react-native-gesture-handler";
 import { TouchableOpacity } from "react-native";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
+import Feather from "react-native-vector-icons/Feather";
 import { appConfig } from "../appConfig";
 import { AnimatedNumber } from "../components/AnimatedNumber";
+import AntDesign from "react-native-vector-icons/AntDesign";
+import { LeftNavigation } from "../components/LeftNavigation";
+
+const leftNavIconsColor = "#ccc";
 
 export default function CarInfo() {
   const [isLogging, setIsLogging] = useState(false);
   const navigation = useNavigation();
+  const router = useRouter();
 
   useEffect(() => {
     navigation.setOptions({ headerShown: false });
@@ -39,44 +44,31 @@ export default function CarInfo() {
     <SafeAreaView style={[globalStyles.screenContainer, {}]}>
       <MainNavigation />
 
-      <ScrollView>
-        <View style={styles.header}>
-          <Text style={[globalStyles.baseText, styles.headerText]}>
-            Aktualne parametry silnika
-          </Text>
-
-          {/* <TouchableOpacity style={styles.button}>
-              <Text style={[globalStyles.baseText, styles.buttonText]}>
-                Oceń przez AI
-              </Text>
-            </TouchableOpacity> */}
-          {appConfig.isConnectedWithautomotiveplace && (
-            <TouchableOpacity style={styles.button}>
-              <Text style={[globalStyles.baseText, styles.buttonText]}>
-                Loguj parametry
-              </Text>
-              <FontAwesome name="play-circle" color="white" size={30} />
-            </TouchableOpacity>
-          )}
-        </View>
-
-        <GestureHandlerRootView style={{ flex: 1 }}>
-          <PinchGestureHandler onGestureEvent={handlePinch}>
-            <View style={styles.paramsContainer}>
-              {settings.carInfoItems.map((item, i) => (
-                <CarInfoItem
-                  key={i}
-                  title={item.title}
-                  pidCode={item.pidCode}
-                  warningValue={item.warningValue}
-                  customStyles={{ width: itemSize, height: itemSize }}
-                  scale={scale}
-                />
-              ))}
-            </View>
-          </PinchGestureHandler>
-        </GestureHandlerRootView>
-      </ScrollView>
+      <View
+        style={{
+          flexDirection: "row",
+        }}
+      >
+        <LeftNavigation />
+        <ScrollView>
+          <GestureHandlerRootView style={{ flex: 1 }}>
+            <PinchGestureHandler onGestureEvent={handlePinch}>
+              <View style={styles.paramsContainer}>
+                {settings.carInfoItems.map((item, i) => (
+                  <CarInfoItem
+                    key={i}
+                    title={item.title}
+                    pidCode={item.pidCode}
+                    warningValue={item.warningValue}
+                    customStyles={{ width: itemSize, height: itemSize }}
+                    scale={scale}
+                  />
+                ))}
+              </View>
+            </PinchGestureHandler>
+          </GestureHandlerRootView>
+        </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }
@@ -99,19 +91,5 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 35,
     fontWeight: "800",
-  },
-  button: {
-    borderColor: "#444",
-    paddingHorizontal: 25,
-    paddingVertical: 15,
-    borderRadius: 5,
-    borderWidth: 3,
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 15,
-  },
-  buttonText: {
-    fontSize: 25,
-    fontWeight: "700",
   },
 });
