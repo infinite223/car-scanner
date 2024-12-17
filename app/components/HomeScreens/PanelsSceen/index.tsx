@@ -1,15 +1,16 @@
 import React from "react";
-import { View, Image, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { globalStyles } from "../../../styles/globalStyles";
 import BasePanel from "./BasePanel";
 import LogoPanel from "./LogoPanel";
+import SecendPanel from "./SecendPanel";
 
 const PanelScreen = () => {
   return (
     <View style={[globalStyles.homeScreen, styles.container]}>
       <FlatList
-        data={[<BasePanel />, <LogoPanel />]}
+        data={[<BasePanel />, <SecendPanel />, <LogoPanel />]}
         keyExtractor={(_, index) => index.toString()}
         pagingEnabled
         scrollEventThrottle={16}
