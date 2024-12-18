@@ -4,11 +4,13 @@ import { useRouter } from "expo-router";
 import Feather from "react-native-vector-icons/Feather";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { appConfig } from "../appConfig";
+import { readExcelFile } from "../common/helpers";
 
 const leftNavIconsColor = "#ccc";
 
 export const LeftNavigation = () => {
   const router = useRouter();
+
   return (
     <View style={styles.leftNavigation}>
       <TouchableOpacity
@@ -32,7 +34,8 @@ export const LeftNavigation = () => {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => router.navigate("/car-info-settings")}
+        onPress={() => readExcelFile()}
+        // onPress={() => router.navigate("/car-info-settings")}
       >
         <Feather name="settings" color={leftNavIconsColor} size={50} />
       </TouchableOpacity>

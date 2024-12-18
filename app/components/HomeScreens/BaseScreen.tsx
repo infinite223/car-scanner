@@ -1,11 +1,7 @@
 import { View, Text, Image, StyleSheet } from "react-native";
-import React, { Suspense } from "react";
+import React from "react";
 import { globalStyles } from "../../styles/globalStyles";
 import { CarInfo } from "../../common/types";
-import { Canvas } from "@react-three/fiber/native";
-import { Model } from "../Model";
-import { appConfig } from "../../appConfig";
-// import mustang from "../../assets/mustang.png";
 
 const BaseScreen = () => {
   const mustang = require("../../assets/mustang.png");
@@ -62,10 +58,6 @@ const BaseScreen = () => {
           </View>
         </View>
 
-        {/* <Canvas>
-          <Suspense fallback={null}> */}
-        {/* <ModelComponent /> */}
-        {/* <Model /> */}
         <Image source={mustang} style={styles.image} />
       </View>
     </View>

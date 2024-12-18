@@ -54,6 +54,7 @@ export default function CarInfo() {
                     warningValue={item.warningValue}
                     customStyles={{ width: itemSize, height: itemSize }}
                     scale={scale}
+                    isLogging={true}
                   />
                 ))}
               </View>
