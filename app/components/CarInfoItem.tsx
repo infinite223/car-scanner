@@ -32,46 +32,47 @@ export const CarInfoItem = ({
   const [value, setValue] = useState<number | null>(null);
   const [valueText, setValueText] = useState<string>("white");
 
-  const logValueToExcel = (timestamp: string, value: number | null) => {
-    const filePath = `${FileSystem.documentDirectory}CarData.xlsx`;
+  const logValueToExcel = async (timestamp: string, value: number | null) => {
+    try {
+      const filePath = `${FileSystem.documentDirectory}CarData.xlsx`;
 
-    FileSystem.getInfoAsync(filePath).then(({ exists }) => {
+      const { exists } = await FileSystem.getInfoAsync(filePath);
       let workbook: XLSX.WorkBook;
+
       if (exists) {
-        const fileContents = FileSystem.readAsStringAsync(filePath, {
+        const fileContents = await FileSystem.readAsStringAsync(filePath, {
           encoding: FileSystem.EncodingType.Base64,
         });
         workbook = XLSX.read(fileContents, { type: "base64" });
-        console.log(workbook, "a");
       } else {
         workbook = XLSX.utils.book_new();
       }
 
       const worksheetName = "Car Data";
       let worksheet = workbook.Sheets[worksheetName];
-      console.log(worksheet, "w");
+
       if (!worksheet) {
         worksheet = XLSX.utils.json_to_sheet([]);
         XLSX.utils.book_append_sheet(workbook, worksheet, worksheetName);
       }
 
-      const data: any[][] = XLSX.utils.sheet_to_json(worksheet, {
-        header: 1,
-      }) as any[][];
+      const data: any[][] = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
 
-      const newRow: any[] = [timestamp, title, value];
-      console.log(newRow, "row");
+      const newRow: any[] = [timestamp, value];
       data.push(newRow);
 
       const updatedWorksheet = XLSX.utils.aoa_to_sheet(data);
-
       workbook.Sheets[worksheetName] = updatedWorksheet;
 
       const updatedFileContents = XLSX.write(workbook, { type: "base64" });
-      FileSystem.writeAsStringAsync(filePath, updatedFileContents, {
+      await FileSystem.writeAsStringAsync(filePath, updatedFileContents, {
         encoding: FileSystem.EncodingType.Base64,
       });
-    });
+
+      console.log("Dane zapisane do pliku Excel:", newRow);
+    } catch (error) {
+      console.error("Błąd podczas zapisywania do pliku Excel:", error);
+    }
   };
 
   const handleLongPress = () => {
@@ -79,7 +80,7 @@ export const CarInfoItem = ({
   };
 
   useEffect(() => {
-    const getValueFromCar = () => {
+    const getValueFromCar = async () => {
       const newValue = Number((Math.random() * 100).toFixed(2));
       setValue(newValue);
 
@@ -98,11 +99,10 @@ export const CarInfoItem = ({
         }
       }
 
-      // Zapisz dane do Excela
       const timestamp = new Date().toISOString();
 
       if (isLogging) {
-        logValueToExcel(timestamp, newValue);
+        // await logValueToExcel(timestamp, newValue);
       }
     };
 
