@@ -11,6 +11,7 @@ import {
   GestureHandlerRootView,
 } from "react-native-gesture-handler";
 import { LeftNavigation } from "../components/LeftNavigation";
+import { readExcelFile } from "../common/helpers";
 
 export default function CarInfo() {
   const [isLogging, setIsLogging] = useState(false);
@@ -27,6 +28,12 @@ export default function CarInfo() {
     setScale(newScale);
   };
 
+  const handleLogging = async () => {
+    setIsLogging((state) => !state);
+
+    if (isLogging) await readExcelFile();
+  };
+
   const screenWidth = SCREEN_WIDTH - 249;
 
   const elementsPerRow = Math.ceil(6 / scale);
@@ -41,7 +48,7 @@ export default function CarInfo() {
           flexDirection: "row",
         }}
       >
-        <LeftNavigation />
+        <LeftNavigation handleLogging={handleLogging} isLogging={isLogging} />
         <ScrollView>
           <GestureHandlerRootView style={{ flex: 1 }}>
             <PinchGestureHandler onGestureEvent={handlePinch}>
@@ -54,7 +61,7 @@ export default function CarInfo() {
                     warningValue={item.warningValue}
                     customStyles={{ width: itemSize, height: itemSize }}
                     scale={scale}
-                    isLogging={true}
+                    isLogging={isLogging}
                   />
                 ))}
               </View>

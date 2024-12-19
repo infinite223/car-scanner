@@ -9,8 +9,7 @@ import React, { useEffect, useState } from "react";
 import { globalStyles } from "../styles/globalStyles";
 import { valuesColors } from "../common/data";
 import { appConfig } from "../appConfig";
-import * as XLSX from "xlsx";
-import * as FileSystem from "expo-file-system";
+import { logValueToExcel } from "../common/helpers";
 
 interface ICarInfoItem {
   title: string;
@@ -31,49 +30,6 @@ export const CarInfoItem = ({
 }: ICarInfoItem) => {
   const [value, setValue] = useState<number | null>(null);
   const [valueText, setValueText] = useState<string>("white");
-
-  const logValueToExcel = async (timestamp: string, value: number | null) => {
-    try {
-      const filePath = `${FileSystem.documentDirectory}CarData.xlsx`;
-
-      const { exists } = await FileSystem.getInfoAsync(filePath);
-      let workbook: XLSX.WorkBook;
-
-      if (exists) {
-        const fileContents = await FileSystem.readAsStringAsync(filePath, {
-          encoding: FileSystem.EncodingType.Base64,
-        });
-        workbook = XLSX.read(fileContents, { type: "base64" });
-      } else {
-        workbook = XLSX.utils.book_new();
-      }
-
-      const worksheetName = "Car Data";
-      let worksheet = workbook.Sheets[worksheetName];
-
-      if (!worksheet) {
-        worksheet = XLSX.utils.json_to_sheet([]);
-        XLSX.utils.book_append_sheet(workbook, worksheet, worksheetName);
-      }
-
-      const data: any[][] = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-
-      const newRow: any[] = [timestamp, value];
-      data.push(newRow);
-
-      const updatedWorksheet = XLSX.utils.aoa_to_sheet(data);
-      workbook.Sheets[worksheetName] = updatedWorksheet;
-
-      const updatedFileContents = XLSX.write(workbook, { type: "base64" });
-      await FileSystem.writeAsStringAsync(filePath, updatedFileContents, {
-        encoding: FileSystem.EncodingType.Base64,
-      });
-
-      console.log("Dane zapisane do pliku Excel:", newRow);
-    } catch (error) {
-      console.error("Błąd podczas zapisywania do pliku Excel:", error);
-    }
-  };
 
   const handleLongPress = () => {
     console.log("options for this car info item");
@@ -98,12 +54,6 @@ export const CarInfoItem = ({
           setValueText(valuesColors.default);
         }
       }
-
-      const timestamp = new Date().toISOString();
-
-      if (isLogging) {
-        // await logValueToExcel(timestamp, newValue);
-      }
     };
 
     const timeout = setTimeout(() => {
@@ -118,6 +68,22 @@ export const CarInfoItem = ({
 
     return () => clearTimeout(timeout);
   }, [pidCode, warningValue]);
+
+  useEffect(() => {
+    const logValue = async () => {
+      if (isLogging && value !== null) {
+        const timestamp = new Date().toISOString();
+        console.log("Logowanie wartości:", timestamp, value);
+        try {
+          await logValueToExcel(timestamp, value);
+        } catch (error) {
+          console.error("Błąd podczas logowania wartości do Excela:", error);
+        }
+      }
+    };
+
+    logValue();
+  }, [value, isLogging]);
 
   return (
     <Pressable

@@ -4,11 +4,19 @@ import { useRouter } from "expo-router";
 import Feather from "react-native-vector-icons/Feather";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { appConfig } from "../appConfig";
-import { readExcelFile } from "../common/helpers";
+import { deleteExcelFile } from "../common/helpers";
 
 const leftNavIconsColor = "#ccc";
 
-export const LeftNavigation = () => {
+interface ILeftNavigation {
+  handleLogging: () => void;
+  isLogging: boolean;
+}
+
+export const LeftNavigation = ({
+  handleLogging,
+  isLogging,
+}: ILeftNavigation) => {
   const router = useRouter();
 
   return (
@@ -21,8 +29,12 @@ export const LeftNavigation = () => {
       </TouchableOpacity>
 
       {appConfig.isConnectedWithautomotiveplace && (
-        <TouchableOpacity style={styles.button}>
-          <Feather name="play" color={leftNavIconsColor} size={50} />
+        <TouchableOpacity style={styles.button} onPress={handleLogging}>
+          {!isLogging ? (
+            <Feather name="play" color={leftNavIconsColor} size={50} />
+          ) : (
+            <Feather name="pause" color={leftNavIconsColor} size={50} />
+          )}
         </TouchableOpacity>
       )}
 
@@ -34,8 +46,7 @@ export const LeftNavigation = () => {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => readExcelFile()}
-        // onPress={() => router.navigate("/car-info-settings")}
+        onPress={async () => await deleteExcelFile()}
       >
         <Feather name="settings" color={leftNavIconsColor} size={50} />
       </TouchableOpacity>
