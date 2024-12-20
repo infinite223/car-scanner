@@ -1,4 +1,4 @@
-## Car scanner - is an application that allows you to connect to the BT ELM327 automotive diagnostic interface
+## AM Panel - is an application that allows you to connect to the BT ELM327 automotive diagnostic interface
 
 #### MVP:
 
