@@ -1,12 +1,11 @@
 import { View, Text, Image, StyleSheet } from "react-native";
-import React, { Suspense } from "react";
+import React from "react";
 import { globalStyles } from "../../styles/globalStyles";
 import { CarInfo } from "../../common/types";
-import { Canvas } from "@react-three/fiber/native";
-import { Model } from "../Model";
-import { appConfig } from "../../appConfig";
 
 const BaseScreen = () => {
+  const mustang = require("../../assets/mustang.png");
+
   const currentLoadCar: CarInfo = {
     hp: 305,
     nm: 385,
@@ -17,7 +16,7 @@ const BaseScreen = () => {
   return (
     <View style={[globalStyles.homeScreen, styles.fixNavigationMargin]}>
       <View style={styles.container}>
-        {/* <View>
+        <View>
           <Text style={[globalStyles.baseText, styles.textModel]}>
             {currentLoadCar.model}
           </Text>
@@ -57,12 +56,9 @@ const BaseScreen = () => {
               Moment obrotowy
             </Text>
           </View>
-        </View> */}
+        </View>
 
-        {/* <Canvas>
-          <Suspense fallback={null}> */}
-        {/* <ModelComponent /> */}
-        <Model />
+        <Image source={mustang} style={styles.image} />
       </View>
     </View>
   );
@@ -98,5 +94,14 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 20,
     gap: 5,
+  },
+  image: {
+    width: 800,
+    height: 550,
+    position: "absolute",
+    bottom: 0,
+    right: 0,
+    margin: 50,
+    opacity: 0.5,
   },
 });

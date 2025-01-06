@@ -1,12 +1,6 @@
 import { useNavigation, useRouter } from "expo-router";
-import {
-  Animated,
-  FlatList,
-  SafeAreaView,
-  Platform,
-  StyleSheet,
-} from "react-native";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { Animated, FlatList, SafeAreaView, StyleSheet } from "react-native";
+import { useEffect, useRef, useState } from "react";
 import { MainNavigation } from "../components/MainNavigation";
 import { globalStyles, SCREEN_WIDTH } from "../styles/globalStyles";
 import BaseScreen from "../components/HomeScreens/BaseScreen";
@@ -24,17 +18,15 @@ export default function Home() {
   const translateX = useRef(new Animated.Value(0)).current;
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const [isMounted, setIsMounted] = useState(false); // Stan do kontrolowania, czy komponent jest zamontowany
+  const [isMounted, setIsMounted] = useState(false);
 
-  // Używamy useEffect, aby poczekać na załadowanie komponentu
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
   useEffect(() => {
-    // Dopiero po pełnym załadowaniu komponentu sprawdzamy szerokość ekranu
     if (isMounted && SCREEN_WIDTH < 500) {
-      router.push("incompatibility"); // Nawigujemy, jeśli ekran jest za mały
+      // router.push("incompatibility");
     }
   }, [isMounted, router]); //
 

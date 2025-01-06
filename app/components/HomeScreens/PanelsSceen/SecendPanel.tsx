@@ -3,8 +3,9 @@ import React, { useEffect, useState } from "react";
 import { View, StyleSheet } from "react-native";
 import { getRandomNumber } from "../../../common/helpers";
 import CustomGauge from "../../CustomGauge";
+import CustomLineGauge from "../../CustomLineGauge";
 
-const BasePanel = () => {
+const SecendPanel = () => {
   const [speed, setSpeed] = useState(0);
   const [rpm, setRpm] = useState(0);
 
@@ -22,19 +23,22 @@ const BasePanel = () => {
 
   return (
     <View style={[globalStyles.homeScreen, styles.container]}>
-      <CustomGauge
+      <CustomLineGauge
         value={speed}
         maxValue={280}
         step={40}
         label="km/h"
         size={2.5}
       />
-      <CustomGauge
+      <CustomLineGauge
         value={rpm}
         maxValue={8000}
         step={1000}
         label="RPM"
         size={2.5}
+        success={4000}
+        warning={6000}
+        error={6500}
       />
     </View>
   );
@@ -46,9 +50,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#000",
-    flexDirection: "row",
     gap: 150,
   },
 });
 
-export default BasePanel;
+export default SecendPanel;

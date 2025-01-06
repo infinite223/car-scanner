@@ -1,5 +1,5 @@
 import { useNavigation } from "expo-router";
-import { Button, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { useEffect, useState } from "react";
 import { MainNavigation } from "../components/MainNavigation";
 import { globalStyles, SCREEN_WIDTH } from "../styles/globalStyles";
@@ -10,10 +10,10 @@ import {
   PinchGestureHandler,
   GestureHandlerRootView,
 } from "react-native-gesture-handler";
-import { TouchableOpacity } from "react-native";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { appConfig } from "../appConfig";
-import { AnimatedNumber } from "../components/AnimatedNumber";
+import { LeftNavigation } from "../components/LeftNavigation";
+import { readExcelFile } from "../common/helpers";
+import * as Sharing from "expo-sharing";
+import * as FileSystem from "expo-file-system";
 
 export default function CarInfo() {
   const [isLogging, setIsLogging] = useState(false);
@@ -30,7 +30,27 @@ export default function CarInfo() {
     setScale(newScale);
   };
 
-  const screenWidth = SCREEN_WIDTH - 150;
+  const handleLogging = async () => {
+    setIsLogging((state) => !state);
+
+    if (isLogging) {
+      const filePath = `${FileSystem.documentDirectory}CarData.xlsx`;
+
+      const fileInfo = await FileSystem.getInfoAsync(filePath);
+      if (!fileInfo.exists) {
+        console.log("Plik Excel nie istnieje.");
+        return;
+      }
+
+      if (await Sharing.isAvailableAsync()) {
+        await Sharing.shareAsync(filePath);
+      } else {
+        console.log("Udostępnianie nie jest dostępne na tym urządzeniu.");
+      }
+    }
+  };
+
+  const screenWidth = SCREEN_WIDTH - 249;
 
   const elementsPerRow = Math.ceil(6 / scale);
   const itemSize = screenWidth / elementsPerRow;
@@ -39,44 +59,32 @@ export default function CarInfo() {
     <SafeAreaView style={[globalStyles.screenContainer, {}]}>
       <MainNavigation />
 
-      <ScrollView>
-        <View style={styles.header}>
-          <Text style={[globalStyles.baseText, styles.headerText]}>
-            Aktualne parametry silnika
-          </Text>
-
-          {/* <TouchableOpacity style={styles.button}>
-              <Text style={[globalStyles.baseText, styles.buttonText]}>
-                Oceń przez AI
-              </Text>
-            </TouchableOpacity> */}
-          {appConfig.isConnectedWithautomotiveplace && (
-            <TouchableOpacity style={styles.button}>
-              <Text style={[globalStyles.baseText, styles.buttonText]}>
-                Loguj parametry
-              </Text>
-              <FontAwesome name="play-circle" color="white" size={30} />
-            </TouchableOpacity>
-          )}
-        </View>
-
-        <GestureHandlerRootView style={{ flex: 1 }}>
-          <PinchGestureHandler onGestureEvent={handlePinch}>
-            <View style={styles.paramsContainer}>
-              {settings.carInfoItems.map((item, i) => (
-                <CarInfoItem
-                  key={i}
-                  title={item.title}
-                  pidCode={item.pidCode}
-                  warningValue={item.warningValue}
-                  customStyles={{ width: itemSize, height: itemSize }}
-                  scale={scale}
-                />
-              ))}
-            </View>
-          </PinchGestureHandler>
-        </GestureHandlerRootView>
-      </ScrollView>
+      <View
+        style={{
+          flexDirection: "row",
+        }}
+      >
+        <LeftNavigation handleLogging={handleLogging} isLogging={isLogging} />
+        <ScrollView>
+          <GestureHandlerRootView style={{ flex: 1 }}>
+            <PinchGestureHandler onGestureEvent={handlePinch}>
+              <View style={styles.paramsContainer}>
+                {settings.carInfoItems.map((item, i) => (
+                  <CarInfoItem
+                    key={i}
+                    title={item.title}
+                    pidCode={item.pidCode}
+                    warningValue={item.warningValue}
+                    customStyles={{ width: itemSize, height: itemSize }}
+                    scale={scale}
+                    isLogging={isLogging}
+                  />
+                ))}
+              </View>
+            </PinchGestureHandler>
+          </GestureHandlerRootView>
+        </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }
@@ -99,19 +107,5 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 35,
     fontWeight: "800",
-  },
-  button: {
-    borderColor: "#444",
-    paddingHorizontal: 25,
-    paddingVertical: 15,
-    borderRadius: 5,
-    borderWidth: 3,
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 15,
-  },
-  buttonText: {
-    fontSize: 25,
-    fontWeight: "700",
   },
 });

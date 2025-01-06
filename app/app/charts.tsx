@@ -1,14 +1,10 @@
-import { View, Text, SafeAreaView } from "react-native";
+import { SafeAreaView, View } from "react-native";
 import React, { useEffect } from "react";
-import {
-  Chart,
-  VerticalAxis,
-  HorizontalAxis,
-  Line,
-} from "react-native-responsive-linechart";
+import { Chart, VerticalAxis, Line } from "react-native-responsive-linechart";
 import { MainNavigation } from "../components/MainNavigation";
 import { globalStyles, SCREEN_HEIGHT } from "../styles/globalStyles";
 import { useNavigation } from "expo-router";
+import { LeftNavigation } from "../components/LeftNavigation";
 
 const data1 = [
   { x: -2, y: 1 },
@@ -38,31 +34,38 @@ const charts = () => {
   return (
     <SafeAreaView style={[globalStyles.screenContainer, {}]}>
       <MainNavigation />
-      <Chart
-        style={{ height: SCREEN_HEIGHT, width: "100%" }}
-        xDomain={{ min: -2, max: 10 }}
-        yDomain={{ min: -2, max: 20 }}
-        padding={{ left: 20, top: 10, bottom: 10, right: 10 }}
+      <View
+        style={{
+          flexDirection: "row",
+        }}
       >
-        <VerticalAxis
-          tickValues={[0, 10, 20]}
-          theme={{
-            axis: { visible: false },
-            grid: { stroke: { color: "#444" } },
-          }}
-        />
-        {/* <HorizontalAxis tickCount={3} /> */}
-        <Line
-          data={data1}
-          smoothing="none"
-          theme={{ stroke: { color: "white", width: 2 } }}
-        />
-        <Line
-          data={data2}
-          smoothing="cubic-spline"
-          theme={{ stroke: { color: "red", width: 2 } }}
-        />
-      </Chart>
+        <LeftNavigation />
+        <Chart
+          style={{ height: SCREEN_HEIGHT, width: "100%" }}
+          xDomain={{ min: -2, max: 10 }}
+          yDomain={{ min: -2, max: 20 }}
+          padding={{ left: 20, top: 10, bottom: 10, right: 10 }}
+        >
+          <VerticalAxis
+            tickValues={[0, 10, 20]}
+            theme={{
+              axis: { visible: false },
+              grid: { stroke: { color: "#444" } },
+            }}
+          />
+          {/* <HorizontalAxis tickCount={3} /> */}
+          <Line
+            data={data1}
+            smoothing="none"
+            theme={{ stroke: { color: "white", width: 2 } }}
+          />
+          <Line
+            data={data2}
+            smoothing="cubic-spline"
+            theme={{ stroke: { color: "red", width: 2 } }}
+          />
+        </Chart>
+      </View>
     </SafeAreaView>
   );
 };
