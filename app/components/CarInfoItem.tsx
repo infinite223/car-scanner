@@ -75,7 +75,7 @@ export const CarInfoItem = ({
         const timestamp = new Date().toISOString();
         console.log("Logowanie wartości:", timestamp, value);
         try {
-          await logValueToExcel(timestamp, value);
+          await logValueToExcel(timestamp, value, title);
         } catch (error) {
           console.error("Błąd podczas logowania wartości do Excela:", error);
         }

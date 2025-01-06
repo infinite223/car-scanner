@@ -57,7 +57,8 @@ export const readExcelFile = async () => {
 
 export const logValueToExcel = async (
   timestamp: string,
-  value: number | null
+  value: number | null,
+  title: string
 ) => {
   try {
     const filePath = `${FileSystem.documentDirectory}CarData.xlsx`;
@@ -84,7 +85,7 @@ export const logValueToExcel = async (
 
     const data: any[][] = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
 
-    const newRow: any[] = [timestamp, value];
+    const newRow: any[] = [timestamp, value, title];
     data.push(newRow);
 
     const updatedWorksheet = XLSX.utils.aoa_to_sheet(data);

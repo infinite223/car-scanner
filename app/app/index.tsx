@@ -26,7 +26,7 @@ export default function Home() {
 
   useEffect(() => {
     if (isMounted && SCREEN_WIDTH < 500) {
-      router.push("incompatibility");
+      // router.push("incompatibility");
     }
   }, [isMounted, router]); //
 

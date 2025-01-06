@@ -12,6 +12,8 @@ import {
 } from "react-native-gesture-handler";
 import { LeftNavigation } from "../components/LeftNavigation";
 import { readExcelFile } from "../common/helpers";
+import * as Sharing from "expo-sharing";
+import * as FileSystem from "expo-file-system";
 
 export default function CarInfo() {
   const [isLogging, setIsLogging] = useState(false);
@@ -31,7 +33,21 @@ export default function CarInfo() {
   const handleLogging = async () => {
     setIsLogging((state) => !state);
 
-    if (isLogging) await readExcelFile();
+    if (isLogging) {
+      const filePath = `${FileSystem.documentDirectory}CarData.xlsx`;
+
+      const fileInfo = await FileSystem.getInfoAsync(filePath);
+      if (!fileInfo.exists) {
+        console.log("Plik Excel nie istnieje.");
+        return;
+      }
+
+      if (await Sharing.isAvailableAsync()) {
+        await Sharing.shareAsync(filePath);
+      } else {
+        console.log("Udostępnianie nie jest dostępne na tym urządzeniu.");
+      }
+    }
   };
 
   const screenWidth = SCREEN_WIDTH - 249;
