@@ -12,7 +12,7 @@ import {
 } from "react-native-gesture-handler";
 import { LeftNavigation } from "../components/LeftNavigation";
 import { readExcelFile } from "../common/helpers";
-import * as Sharing from "expo-sharing";
+// import * as Sharing from "expo-sharing";
 import * as FileSystem from "expo-file-system";
 
 export default function CarInfo() {
@@ -42,11 +42,11 @@ export default function CarInfo() {
         return;
       }
 
-      if (await Sharing.isAvailableAsync()) {
-        await Sharing.shareAsync(filePath);
-      } else {
-        console.log("Udostępnianie nie jest dostępne na tym urządzeniu.");
-      }
+      // if (await Sharing.isAvailableAsync()) {
+      //   await Sharing.shareAsync(filePath);
+      // } else {
+      //   console.log("Udostępnianie nie jest dostępne na tym urządzeniu.");
+      // }
     }
   };
 

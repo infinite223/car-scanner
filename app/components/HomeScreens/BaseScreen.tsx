@@ -2,6 +2,7 @@ import { View, Text, Image, StyleSheet } from "react-native";
 import React from "react";
 import { globalStyles } from "../../styles/globalStyles";
 import { CarInfo } from "../../common/types";
+import { WifiScanner } from "../WifiScanner";
 
 const BaseScreen = () => {
   const mustang = require("../../assets/mustang.png");
@@ -16,7 +17,8 @@ const BaseScreen = () => {
   return (
     <View style={[globalStyles.homeScreen, styles.fixNavigationMargin]}>
       <View style={styles.container}>
-        <View>
+        <WifiScanner />
+        {/* <View>
           <Text style={[globalStyles.baseText, styles.textModel]}>
             {currentLoadCar.model}
           </Text>
@@ -58,7 +60,7 @@ const BaseScreen = () => {
           </View>
         </View>
 
-        <Image source={mustang} style={styles.image} />
+        <Image source={mustang} style={styles.image} /> */}
       </View>
     </View>
   );
